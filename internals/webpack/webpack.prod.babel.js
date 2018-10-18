@@ -15,6 +15,18 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
 
+  cssLoaders: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        camelCase: true,
+        modules: true,
+        importLoaders: 1,
+      },
+    },
+  ],
+
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.CommonsChunkPlugin({

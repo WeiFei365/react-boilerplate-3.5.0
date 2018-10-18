@@ -22,7 +22,7 @@ import App from 'containers/App';
 import configureStore from './configureStore';
 
 // Import CSS reset and Global Styles
-import './global-styles';
+import './global-styles.css';
 
 // Create redux store with history
 const initialState = {};

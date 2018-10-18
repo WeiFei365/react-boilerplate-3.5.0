@@ -51,6 +51,20 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].chunk.js',
   },
 
+  cssLoaders: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        camelCase: true,
+        modules: true,
+        importLoaders: 1,
+        sourceMap: true,
+        localIdentName: '[local]__[path][name]__[hash:base64:5]',
+      },
+    },
+  ],
+
   // Add development plugins
   plugins: dependencyHandlers().concat(plugins), // eslint-disable-line no-use-before-define
 
@@ -74,7 +88,9 @@ module.exports = require('./webpack.base.babel')({
  */
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
-  if (process.env.BUILDING_DLL) { return []; }
+  if (process.env.BUILDING_DLL) {
+    return [];
+  }
 
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
