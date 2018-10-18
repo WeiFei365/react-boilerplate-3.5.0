@@ -1,0 +1,27 @@
+{
+  "name": "react-boilerplate-3.5.0",
+  "version": "3.5.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeiFei365/react-boilerplate-3.5.0.git"
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=8"
+  },
+  "author": "WEI FEI",
+  "license": "ISC",
+  "keywords": [
+    "react-boilerplate",
+    "react",
+    "antd"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/WeiFei365/react-boilerplate-3.5.0/issues"
+  },
+  "homepage": "https://github.com/WeiFei365/react-boilerplate-3.5.0#readme"
+}
