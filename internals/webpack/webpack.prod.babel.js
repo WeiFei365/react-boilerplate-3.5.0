@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -15,9 +16,9 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
 
-  cssLoaders: [
-    'style-loader',
-    {
+  cssLoaders: ExtractTextWebpackPlugin.extract({
+    fallback: 'style-loader',
+    use: {
       loader: 'css-loader',
       options: {
         camelCase: true,
@@ -25,10 +26,15 @@ module.exports = require('./webpack.base.babel')({
         importLoaders: 1,
       },
     },
-  ],
+  }),
 
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new ExtractTextWebpackPlugin({
+      filename: '[name].[contenthash].css',
+      ignoreOrder: true,
+      allChunks: true,
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       children: true,
