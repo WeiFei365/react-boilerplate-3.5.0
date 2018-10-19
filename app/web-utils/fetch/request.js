@@ -1,6 +1,9 @@
 import 'whatwg-fetch';
 
 
+// http 请求网络级的报错，如: 404、503、断网等
+const HTTP_ERROR = Math.random();
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return null;
@@ -28,7 +31,7 @@ export default function request(url, options) {
         return {
           error,
           // 服务器出错, 比如: 500
-          code: 10000,
+          code: HTTP_ERROR,
         };
       }
       // TODO 这里只处理返回的 json 格式数据,
@@ -38,13 +41,17 @@ export default function request(url, options) {
     }, (error) => ({
       error,
       // 通信异常, 比如: 网络中断、跨域等
-      code: 20000,
+      code: HTTP_ERROR,
     })).catch((error) => ({ // 捕获其他所有报错, 保证之后的 then 可以只处理 resolve, 以 code 来判断请求结果
       error,
       // 未知异常
-      code: 99999,
+      code: HTTP_ERROR,
     }))
     .then((data) => { // 统一处理接口状态, 返回调用层"需要的数据"
+      if (data.code === HTTP_ERROR) {
+        // throw http 级的状态错误
+        return Promise.reject(data.error);
+      }
       if (data.code === 0) {
         // TODO 1、检查请求成功的标志
         // 和接口方约定, data.data 为请求返回的数据
