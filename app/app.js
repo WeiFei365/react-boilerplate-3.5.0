@@ -13,12 +13,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';
 
+import history from 'web-utils/store/history';
 import configureStore from './configureStore';
 
 // Import CSS reset and Global Styles
@@ -26,7 +26,6 @@ import './global-styles.css';
 
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
 const store = configureStore(initialState);
 const MOUNT_NODE = document.getElementById('app');
 
