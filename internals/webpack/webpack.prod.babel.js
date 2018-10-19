@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const antdModifyVars = require(path.resolve(process.cwd(), 'app/antd-modifyVars.js'));
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -26,6 +27,24 @@ module.exports = require('./webpack.base.babel')({
         importLoaders: 1,
       },
     },
+  }),
+  antdLessLoaders: ExtractTextWebpackPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+        },
+      },
+      {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true,
+          modifyVars: antdModifyVars,
+        },
+      },
+    ],
   }),
 
   plugins: [

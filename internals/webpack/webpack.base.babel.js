@@ -42,6 +42,10 @@ module.exports = (options) => ({
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /(antd\/){1}.+\.less$/,
+        use: options.antdLessLoaders,
+      },
+      {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
         use: 'file-loader',
       },
@@ -87,6 +91,9 @@ module.exports = (options) => ({
     new webpack.NamedModulesPlugin(),
   ]),
   resolve: {
+    alias: {
+      moment$: 'moment/moment.js',
+    },
     modules: ['app', 'node_modules'],
     extensions: [
       '.js',

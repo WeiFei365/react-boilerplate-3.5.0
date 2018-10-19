@@ -12,6 +12,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const logger = require('../../server/logger');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const dllPlugin = pkg.dllPlugin;
+const antdModifyVars = require(path.resolve(process.cwd(), 'app/antd-modifyVars.js'));
 
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
@@ -61,6 +62,24 @@ module.exports = require('./webpack.base.babel')({
         importLoaders: 1,
         sourceMap: true,
         localIdentName: '[local]__[path][name]__[hash:base64:5]',
+      },
+    },
+  ],
+  antdLessLoaders: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        sourceMap: true,
+      },
+    },
+    {
+      loader: 'less-loader',
+      options: {
+        sourceMap: true,
+        javascriptEnabled: true,
+        modifyVars: antdModifyVars,
       },
     },
   ],

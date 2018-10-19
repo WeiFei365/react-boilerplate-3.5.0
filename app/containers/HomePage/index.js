@@ -11,6 +11,8 @@
 
 import React from 'react';
 
+import Button from 'antds/Button';
+
 import css from './style.css';
 
 
@@ -19,6 +21,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <h1 className={css.home}>
         Home Page.
+        <div><Button type="primary">Antd Button</Button></div>
       </h1>
     );
   }
